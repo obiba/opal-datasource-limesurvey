@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": [
+    {
+      "key": "url",
+      "title": "URL",
+      "type": "string"
+    },
+    {
+      "key": "username",
+      "title": "Username",
+      "type": "string"
+    },
+    {
+      "key": "password",
+      "title": "Password",
+      "type": "string",
+      "format": "password"
+    },
+    {
+      "key": "prefix",
+      "title": "Prefix",
+      "type": "string",
+      "description": "At LimeSurvey install, SQL tables can be optionally prefixed by a string."
+    }
+  ],
+  "required": [
+    "url", "username"
+  ]
+}
