@@ -5,7 +5,9 @@
     {
       "key": "url",
       "title": "URL",
-      "type": "string"
+      "type": "string",
+      "pattern": "^jdbc:(mysql|postgresql|mariadb):\/\/[^ ]+$",
+      "description": "A valid jdbc connection url from either mysql, mariadb or postgresql"
     },
     {
       "key": "username",
