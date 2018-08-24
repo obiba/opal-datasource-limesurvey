@@ -7,7 +7,7 @@
       "title": "URL",
       "type": "string",
       "pattern": "^jdbc:(mysql|postgresql|mariadb):\/\/[^ ]+$",
-      "description": "A valid jdbc connection url from either mysql, mariadb or postgresql"
+      "description": "A valid jdbc connection url from either mysql, mariadb or postgresql."
     },
     {
       "key": "username",
@@ -25,6 +25,14 @@
       "title": "Prefix",
       "type": "string",
       "description": "At LimeSurvey install, SQL tables can be optionally prefixed by a string."
+    },
+    {
+      "key": "properties",
+      "title": "Additional Properties",
+      "type": "string",
+      "format": "textarea",
+      "description": "Format of the string must be \"propertyName1=property1;propertyName2=property2;...\".",
+      "default": "characterEncoding=UTF-8;"
     }
   ],
   "required": [

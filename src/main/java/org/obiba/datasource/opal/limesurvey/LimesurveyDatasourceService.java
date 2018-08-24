@@ -13,6 +13,7 @@ public class LimesurveyDatasourceService extends AbstractDatasourceService {
     String username = parameters.optString("username");
     String password = parameters.optString("password");
     String prefix = parameters.optString("prefix");
+    String additionalProperties = parameters.optString("properties");
 
     if ((url == null || url.trim().length() == 0)  || (username == null || username.trim().length() == 0)) {
       return null;
@@ -20,6 +21,7 @@ public class LimesurveyDatasourceService extends AbstractDatasourceService {
 
     LimesurveyDatasourceFactory limesurveyDatasourceFactory = new LimesurveyDatasourceFactory(url, username, password);
     limesurveyDatasourceFactory.setPrefix(prefix);
+    limesurveyDatasourceFactory.setAdditionalProperties(additionalProperties);
     limesurveyDatasourceFactory.setName(getName());
 
 		return limesurveyDatasourceFactory;

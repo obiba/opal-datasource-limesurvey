@@ -3,6 +3,7 @@ package org.obiba.datasource.opal.limesurvey;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.stream.Stream;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.obiba.magma.AbstractDatasourceFactory;
@@ -22,6 +23,7 @@ public class LimesurveyDatasourceFactory extends AbstractDatasourceFactory {
   private String username;
   private String password;
   private String prefix;
+  private String additionalProperties;
 
   /**
    * @return the url
@@ -58,6 +60,24 @@ public class LimesurveyDatasourceFactory extends AbstractDatasourceFactory {
     return prefix;
   }
 
+  /**
+   * @param additionalProperties the additionalProperties to set
+   */
+  public void setAdditionalProperties(String additionalProperties) {
+    if (additionalProperties != null) {
+      this.additionalProperties = Stream.of(additionalProperties.split(";")).reduce("", (partial, item) -> partial + ";" + item.trim());
+    }
+
+    this.additionalProperties = additionalProperties;
+  }
+
+  /**
+   * @return the additionalProperties
+   */
+  public String getAdditionalProperties() {
+    return additionalProperties;
+  }
+
   public LimesurveyDatasourceFactory(String url, String username, String password) {
     this.url = url;
     this.username = username;
@@ -74,7 +94,7 @@ public class LimesurveyDatasourceFactory extends AbstractDatasourceFactory {
 
       dataSource.setDriverClassName(driverClass);
       dataSource.setUrl(url);
-      // dataSource.setConnectionProperties(connectionProperties);
+      dataSource.setConnectionProperties(additionalProperties);
       dataSource.setUsername(username);
       dataSource.setPassword(password);
       dataSource.setInitialSize(MIN_POOL_SIZE);
@@ -83,14 +103,12 @@ public class LimesurveyDatasourceFactory extends AbstractDatasourceFactory {
       dataSource.setTestOnBorrow(true);
       dataSource.setTestWhileIdle(false);
       dataSource.setTestOnReturn(false);
-      
+
       dataSource.setDefaultAutoCommit(false);
-      // dataSource.setValidationQuery(validationQuery);
 
       return new LimesurveyDatasource(getName(), dataSource);
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      log.error("{}", e);
     }
     return null;
   }
