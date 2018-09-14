@@ -7,18 +7,21 @@
       "title": "URL",
       "type": "string",
       "pattern": "^jdbc:(mysql|postgresql|mariadb):\/\/[^ ]+$",
-      "description": "A valid jdbc connection url from either mysql, mariadb or postgresql."
+      "description": "A valid jdbc connection url from either mysql, mariadb or postgresql.",
+      "default": "jdbc:mysql://localhost:3306/limesurvey"
     },
     {
       "key": "username",
       "title": "Username",
-      "type": "string"
+      "type": "string",
+      "description": "Limesurvey database user name."
     },
     {
       "key": "password",
       "title": "Password",
       "type": "string",
-      "format": "password"
+      "format": "password",
+      "description": "Limesurvey database user password."
     },
     {
       "key": "prefix",
