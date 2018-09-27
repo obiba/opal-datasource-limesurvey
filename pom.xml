@@ -27,9 +27,11 @@
     <spring.version>4.2.1.RELEASE</spring.version>
 
     <!-- maven plugins -->
+    <github-release-plugin.version>1.2.0</github-release-plugin.version>
     <maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
     <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>3.1.0</maven-dependency-plugin.version>
+    <maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
     <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
     <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
 
@@ -202,8 +204,60 @@
         </executions>
       </plugin>
 
+      <!-- Disable default deployer. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven-deploy-plugin.version}</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <!-- A profile for the builds performed by the continuous integration server -->
+      <id>release</id>
+      <build>
+        <plugins>
+
+          <!-- Upload packages to github release -->
+          <plugin>
+            <groupId>de.jutzig</groupId>
+            <artifactId>github-release-plugin</artifactId>
+            <version>${github-release-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>make-release</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>release</goal>
+                </goals>
+                <configuration>
+                  <releaseName>${project.version}</releaseName>
+                  <tag>${project.version}</tag>
+                  <repositoryId>obiba/${project.name}</repositoryId>
+                  <artifact>donotuploadjar</artifact>
+                  <fileSets>
+                    <fileSet>
+                      <directory>${basedir}/target</directory>
+                      <includes>
+                        <include>*.zip</include>
+                      </includes>
+                    </fileSet>
+                  </fileSets>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <repositories>
     <repository>
@@ -229,6 +283,31 @@
       </snapshots>
     </repository>
   </repositories>
+
+  <scm>
+    <connection>scm:git:https://github.com/obiba/opal-datasource-limesurvey.git</connection>
+    <developerConnection>scm:git:https://github.com/obiba/opal-datasource-limesurvey.git</developerConnection>
+    <url>https://github.com/obiba/opal-datasource-limesurvey</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/obiba/opal-datasource-limesurvey/issues</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>Travis</system>
+    <url>https://travis-ci.org/obiba/opal-datasource-limesurvey</url>
+  </ciManagement>
+
+  <mailingLists>
+    <mailingList>
+      <name>OBiBa Users</name>
+      <post>obiba-users@googlegroups.com</post>
+      <archive>https://groups.google.com/forum/?fromgroups#!forum/obiba-users</archive>
+    </mailingList>
+  </mailingLists>
 
   <licenses>
     <license>
