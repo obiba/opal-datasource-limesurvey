@@ -17,7 +17,7 @@
     <fest.version>2.0M10</fest.version>
     <junit.version>4.12</junit.version>
 
-    <magma.version>1.18-SNAPSHOT</magma.version>
+    <magma.version>1.18.0</magma.version>
 
     <mysql-connector-java.version>8.0.11</mysql-connector-java.version>
 
