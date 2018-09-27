@@ -21,8 +21,8 @@
 
     <mysql-connector-java.version>8.0.11</mysql-connector-java.version>
 
-    <opal.version>2.12-SNAPSHOT</opal.version>
-    <obiba-commons.version>1.10.2</obiba-commons.version>
+    <opal.version>2.12.0</opal.version>
+    <obiba-commons.version>1.11.0</obiba-commons.version>
 
     <spring.version>4.2.1.RELEASE</spring.version>
 
