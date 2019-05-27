@@ -10,14 +10,7 @@
 
 package org.obiba.datasource.opal.limesurvey;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
-import javax.validation.constraints.NotNull;
-
+import com.google.common.collect.Lists;
 import org.obiba.magma.Datasource;
 import org.obiba.magma.Initialisable;
 import org.obiba.magma.VariableEntity;
@@ -27,16 +20,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
+import java.util.List;
 
 public class LimesurveyVariableEntityProvider extends AbstractVariableEntityProvider implements Initialisable {
 
   private static final Logger log = LoggerFactory.getLogger(LimesurveyVariableEntityProvider.class);
 
-  private Set<VariableEntity> entities;
+  private List<VariableEntity> entities;
 
   private final Integer sid;
 
@@ -50,30 +43,27 @@ public class LimesurveyVariableEntityProvider extends AbstractVariableEntityProv
 
   @Override
   public void initialise() {
-    String sqlEntities = "SELECT token FROM " + datasource.quoteAndPrefix("survey_" + sid) + " WHERE submitdate is not NULL and token is not NULL";
+    String sqlEntities = "SELECT DISTINCT token FROM " + datasource.quoteAndPrefix("survey_" + sid) + " WHERE submitdate is not NULL and token is not NULL";
     JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource.getDataSource());
 
     List<VariableEntity> entityList = null;
     try {
-      entityList = jdbcTemplate.query(sqlEntities, new RowMapper<VariableEntity>() {
-        @Override
-        public VariableEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-          String entityId = rs.getString("token");
-          return new VariableEntityBean(LimesurveyValueTable.PARTICIPANT, entityId);
-        }
+      entityList = jdbcTemplate.query(sqlEntities, (rs, rowNum) -> {
+        String entityId = rs.getString("token");
+        return new VariableEntityBean(LimesurveyValueTable.PARTICIPANT, entityId);
       });
-    } catch(BadSqlGrammarException e) {
+    } catch (BadSqlGrammarException e) {
       log.info("survey_{} is probably not active", sid);
     }
 
     if (entityList == null) entityList = Lists.newArrayList();
 
-    entities = Sets.newHashSet(entityList);
+    entities = entityList;
   }
 
   @NotNull
   @Override
-  public Set<VariableEntity> getVariableEntities() {
-    return Collections.unmodifiableSet(entities);
+  public List<VariableEntity> getVariableEntities() {
+    return Collections.unmodifiableList(entities);
   }
 }
