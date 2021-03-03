@@ -10,14 +10,9 @@
 
 package org.obiba.datasource.opal.limesurvey;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-
-import javax.sql.DataSource;
-
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import org.obiba.magma.MagmaRuntimeException;
 import org.obiba.magma.ValueTable;
 import org.obiba.magma.support.AbstractDatasource;
@@ -26,10 +21,12 @@ import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 
 public class LimesurveyDatasource extends AbstractDatasource {
 
@@ -60,7 +57,7 @@ public class LimesurveyDatasource extends AbstractDatasource {
     iqs = "";
     this.dataSource = dataSource;
     jdbcTemplate = new JdbcTemplate(dataSource);
-    this.tablePrefix = Objects.firstNonNull(tablePrefix, DEFAULT_TABLE_PREFIX);
+    this.tablePrefix = tablePrefix == null ? DEFAULT_TABLE_PREFIX : tablePrefix;
   }
 
   @Override
@@ -69,11 +66,11 @@ public class LimesurveyDatasource extends AbstractDatasource {
     String sqlDbVersion = "SELECT stg_value FROM " + quoteAndPrefix("settings_global") + " WHERE stg_name='DBVersion'";
     String dbVersion = jdbcTemplate.queryForObject(sqlDbVersion, String.class);
     try {
-      if(Float.parseFloat(dbVersion) < LIMESURVEY_DB_MIN_VERSION) {
+      if (Float.parseFloat(dbVersion) < LIMESURVEY_DB_MIN_VERSION) {
         throw new MagmaRuntimeException(
             "Limesurvey database version unsupported:" + dbVersion + " (must be greater equal than 146)");
       }
-    } catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       throw new MagmaRuntimeException("Limesurvey database version unsupported:" + dbVersion);
     }
     iqs = jdbcTemplate.execute(new ConnectionCallback<String>() {
@@ -82,7 +79,7 @@ public class LimesurveyDatasource extends AbstractDatasource {
         return con.getMetaData().getIdentifierQuoteString();
       }
     });
-    if(tablePrefix.contains(iqs)) {
+    if (tablePrefix.contains(iqs)) {
       throw new MagmaRuntimeException("you can not use '" + iqs + "' character in '" + tablePrefix + "'");
     }
   }
@@ -97,7 +94,7 @@ public class LimesurveyDatasource extends AbstractDatasource {
     Set<String> names = Sets.newLinkedHashSet();
     sids = Maps.newHashMap();
     SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
-    while(rows.next()) {
+    while (rows.next()) {
       String title = LimesurveyUtils.toValidMagmaName(rows.getString("surveyls_title"));
       title = LimesurveyUtils.removeSlashes(title);
       names.add(title);
