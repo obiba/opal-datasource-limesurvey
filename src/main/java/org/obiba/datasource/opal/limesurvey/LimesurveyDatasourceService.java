@@ -9,11 +9,11 @@ public class LimesurveyDatasourceService extends AbstractDatasourceService {
 
 	@Override
 	public DatasourceFactory createDatasourceFactory(DatasourceUsage usage, JSONObject parameters) {
-    String url = parameters.optString("url");
-    String username = parameters.optString("username");
-    String password = parameters.optString("password");
-    String prefix = parameters.optString("prefix");
-    String additionalProperties = parameters.optString("properties");
+    String url = parameters.optString("url", getProperties().getProperty("url", ""));
+    String username = parameters.optString("username", getProperties().getProperty("username", ""));
+    String password = parameters.optString("password", getProperties().getProperty("password", ""));
+    String prefix = parameters.optString("prefix", getProperties().getProperty("prefix", ""));
+    String additionalProperties = parameters.optString("properties", getProperties().getProperty("properties", ""));
 
     if ((url == null || url.trim().length() == 0)  || (username == null || username.trim().length() == 0)) {
       return null;
