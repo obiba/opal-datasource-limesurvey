@@ -21,6 +21,7 @@ public class LimesurveyDatasourceService extends AbstractDatasourceService {
 
     LimesurveyDatasourceFactory limesurveyDatasourceFactory = new LimesurveyDatasourceFactory(url, username, password);
     limesurveyDatasourceFactory.setPrefix(prefix);
+    limesurveyDatasourceFactory.setUncompleted(parameters.getBoolean("uncompleted"));
     limesurveyDatasourceFactory.setAdditionalProperties(additionalProperties);
     limesurveyDatasourceFactory.setName(getName());
 

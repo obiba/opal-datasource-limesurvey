@@ -1,11 +1,11 @@
-# Opal Limesurvey Plugin [![Build Status](https://travis-ci.org/obiba/opal-datasource-limesurvey.svg?branch=master)](https://travis-ci.org/obiba/opal-datasource-limesurvey)
+# Opal Limesurvey Plugin [![Build Status](https://app.travis-ci.com/obiba/opal-datasource-limesurvey.svg?branch=master)](https://app.travis-ci.com/github/obiba/opal-datasource-limesurvey)
 
 This plugin can import data and variables from a [Limesurvey](https://www.limesurvey.org/) database. 
 
 [Opal](https://github.com/obiba/opal) is OBiBa’s core database application for biobanks or epidemiological studies.
 
 * Have a bug or a question? Please create an issue on [GitHub](https://github.com/obiba/opal-datasource-limesurvey/issues).
-* Continuous integration is on [Travis](https://travis-ci.org/obiba/opal-datasource-limesurvey).
+* Continuous integration is on [Travis](https://app.travis-ci.com/github/obiba/opal-datasource-limesurvey).
 
 ## Mailing list
 

@@ -43,7 +43,8 @@ public class LimesurveyVariableEntityProvider extends AbstractVariableEntityProv
 
   @Override
   public void initialise() {
-    String sqlEntities = "SELECT DISTINCT token FROM " + datasource.quoteAndPrefix("survey_" + sid) + " WHERE submitdate is not NULL and token is not NULL";
+    String whereStatement = (datasource.isUncompleted() ? "" : "submitdate is not NULL and ") + "token is not NULL";
+    String sqlEntities = String.format("SELECT DISTINCT token FROM {} WHERE {}", datasource.quoteAndPrefix("survey_" + sid), whereStatement);
     JdbcTemplate jdbcTemplate = new JdbcTemplate(datasource.getDataSource());
 
     List<VariableEntity> entityList = null;

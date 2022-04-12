@@ -30,6 +30,12 @@
       "description": "At LimeSurvey install, SQL tables can be optionally prefixed by a string."
     },
     {
+      "key": "uncompleted",
+      "title": "Uncompleted interviews",
+      "type": "boolean",
+      "description": "Option to import all interviews, i.e. including the ones that have not been submitted."
+    },
+    {
       "key": "properties",
       "title": "Additional Properties",
       "type": "string",

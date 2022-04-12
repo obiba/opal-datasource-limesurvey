@@ -11,6 +11,7 @@
 package org.obiba.datasource.opal.limesurvey;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.obiba.magma.MagmaRuntimeException;
@@ -42,22 +43,25 @@ public class LimesurveyDatasource extends AbstractDatasource {
 
   private final String tablePrefix;
 
+  private final boolean uncompleted;
+
   private Map<String, Integer> sids;
 
   @SuppressWarnings("FieldMayBeFinal")
   private String iqs;
 
   public LimesurveyDatasource(String name, DataSource dataSource) {
-    this(name, dataSource, DEFAULT_TABLE_PREFIX);
+    this(name, dataSource, DEFAULT_TABLE_PREFIX, false);
   }
 
-  public LimesurveyDatasource(String name, DataSource dataSource, String tablePrefix) {
+  public LimesurveyDatasource(String name, DataSource dataSource, String tablePrefix, boolean uncompleted) {
     super(name, TYPE);
     Preconditions.checkArgument(dataSource != null);
     iqs = "";
     this.dataSource = dataSource;
     jdbcTemplate = new JdbcTemplate(dataSource);
-    this.tablePrefix = tablePrefix == null ? DEFAULT_TABLE_PREFIX : tablePrefix;
+    this.tablePrefix = Strings.isNullOrEmpty(tablePrefix) ? DEFAULT_TABLE_PREFIX : tablePrefix;
+    this.uncompleted = uncompleted;
   }
 
   @Override
@@ -120,4 +124,7 @@ public class LimesurveyDatasource extends AbstractDatasource {
     return iqs + tablePrefix + identifier + iqs;
   }
 
+  public boolean isUncompleted() {
+    return uncompleted;
+  }
 }

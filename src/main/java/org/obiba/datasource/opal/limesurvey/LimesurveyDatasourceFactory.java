@@ -23,6 +23,7 @@ public class LimesurveyDatasourceFactory extends AbstractDatasourceFactory {
   private String username;
   private String password;
   private String prefix;
+  private boolean uncompleted;
   private String additionalProperties;
 
   /**
@@ -58,6 +59,14 @@ public class LimesurveyDatasourceFactory extends AbstractDatasourceFactory {
    */
   public String getPrefix() {
     return prefix;
+  }
+
+  public void setUncompleted(boolean uncompleted) {
+    this.uncompleted = uncompleted;
+  }
+
+  public boolean isUncompleted() {
+    return uncompleted;
   }
 
   /**
@@ -106,7 +115,7 @@ public class LimesurveyDatasourceFactory extends AbstractDatasourceFactory {
 
       dataSource.setDefaultAutoCommit(false);
 
-      return new LimesurveyDatasource(getName(), dataSource);
+      return new LimesurveyDatasource(getName(), dataSource, getPrefix(), isUncompleted());
     } catch (SQLException e) {
       log.error("{}", e);
     }
