@@ -13,6 +13,7 @@ public class LimesurveyDatasourceService extends AbstractDatasourceService {
     String username = parameters.optString("username", getProperties().getProperty("username", ""));
     String password = parameters.optString("password", getProperties().getProperty("password", ""));
     String prefix = parameters.optString("prefix", getProperties().getProperty("prefix", ""));
+    boolean uncompleted = parameters.optBoolean("uncompleted", Boolean.parseBoolean(getProperties().getProperty("uncompleted", "false")));
     String additionalProperties = parameters.optString("properties", getProperties().getProperty("properties", ""));
 
     if ((url == null || url.trim().length() == 0)  || (username == null || username.trim().length() == 0)) {
@@ -21,7 +22,7 @@ public class LimesurveyDatasourceService extends AbstractDatasourceService {
 
     LimesurveyDatasourceFactory limesurveyDatasourceFactory = new LimesurveyDatasourceFactory(url, username, password);
     limesurveyDatasourceFactory.setPrefix(prefix);
-    limesurveyDatasourceFactory.setUncompleted(parameters.getBoolean("uncompleted"));
+    limesurveyDatasourceFactory.setUncompleted(uncompleted);
     limesurveyDatasourceFactory.setAdditionalProperties(additionalProperties);
     limesurveyDatasourceFactory.setName(getName());
 
