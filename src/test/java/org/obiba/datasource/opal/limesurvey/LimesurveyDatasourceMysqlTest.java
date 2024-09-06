@@ -12,7 +12,7 @@ package org.obiba.datasource.opal.limesurvey;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.obiba.magma.Datasource;

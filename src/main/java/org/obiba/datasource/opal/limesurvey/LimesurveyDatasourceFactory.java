@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.stream.Stream;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.obiba.magma.AbstractDatasourceFactory;
 import org.obiba.magma.Datasource;
 import org.slf4j.Logger;
@@ -107,7 +107,7 @@ public class LimesurveyDatasourceFactory extends AbstractDatasourceFactory {
       dataSource.setUsername(username);
       dataSource.setPassword(password);
       dataSource.setInitialSize(MIN_POOL_SIZE);
-      dataSource.setMaxActive(MAX_POOL_SIZE);
+      dataSource.setMaxTotal(MAX_POOL_SIZE);
       dataSource.setMaxIdle(MAX_IDLE);
       dataSource.setTestOnBorrow(true);
       dataSource.setTestWhileIdle(false);

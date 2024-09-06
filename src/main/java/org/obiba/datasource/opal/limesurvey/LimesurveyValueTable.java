@@ -423,6 +423,16 @@ class LimesurveyValueTable extends AbstractValueTable {
       return variable.getValueType();
     }
 
+    @Override
+    public boolean supportVectorSummary() {
+      return VectorSource.super.supportVectorSummary();
+    }
+
+    @Override
+    public VectorSummarySource getVectorSummarySource(Iterable<VariableEntity> entities) throws VectorSummarySourceNotSupportedException {
+      return VectorSource.super.getVectorSummarySource(entities);
+    }
+
     @NotNull
     @Override
     public Value getValue(ValueSet valueSet) {
@@ -453,8 +463,8 @@ class LimesurveyValueTable extends AbstractValueTable {
 
     @Override
     //TODO move into provider implementation
-    public Iterable<Value> getValues(final List<VariableEntity> entities) {
-      return new Iterable<Value>() {
+    public Iterable<Value> getValues(final Iterable<VariableEntity> entities) {
+      return new Iterable<>() {
 
         @Override
         public Iterator<Value> iterator() {
