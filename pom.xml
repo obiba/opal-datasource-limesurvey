@@ -14,8 +14,8 @@
     <commons-dbcp2.version>2.9.0</commons-dbcp2.version>
     <fest.version>2.0M10</fest.version>
     <junit.version>4.13.2</junit.version>
-    <magma.version>5.0-SNAPSHOT</magma.version>
-    <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
+    <magma.version>5.0.2</magma.version>
+    <mysql-connector-j.version>8.4.0</mysql-connector-j.version>
     <opal.version>5.0-SNAPSHOT</opal.version>
     <obiba-commons.version>4.1.0</obiba-commons.version>
     <spring.version>6.0.19</spring.version>
@@ -82,9 +82,9 @@
     </dependency>
 
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql-connector-java.version}</version>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>${mysql-connector-j.version}</version>
       <scope>test</scope>
     </dependency>
 
