@@ -17,8 +17,8 @@
     <magma.version>5.0.2</magma.version>
     <mysql-connector-j.version>8.4.0</mysql-connector-j.version>
     <opal.version>5.0-SNAPSHOT</opal.version>
-    <obiba-commons.version>4.1.0</obiba-commons.version>
-    <spring.version>6.0.19</spring.version>
+    <obiba-commons.version>4.2.0</obiba-commons.version>
+    <spring.version>6.1.13</spring.version>
 
     <!-- maven plugins -->
     <github-release-plugin.version>1.2.0</github-release-plugin.version>
