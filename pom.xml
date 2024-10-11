@@ -16,12 +16,12 @@
     <junit.version>4.13.2</junit.version>
     <magma.version>5.0.2</magma.version>
     <mysql-connector-j.version>8.4.0</mysql-connector-j.version>
-    <opal.version>5.0-SNAPSHOT</opal.version>
+    <opal.version>5.0.0</opal.version>
     <obiba-commons.version>4.2.0</obiba-commons.version>
     <spring.version>6.1.13</spring.version>
 
     <!-- maven plugins -->
-    <github-release-plugin.version>1.2.0</github-release-plugin.version>
+    <github-release-plugin.version>1.6.0</github-release-plugin.version>
     <maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
     <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>3.1.0</maven-dependency-plugin.version>
