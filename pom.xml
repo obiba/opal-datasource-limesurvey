@@ -18,7 +18,7 @@
     <mysql-connector-j.version>8.4.0</mysql-connector-j.version>
     <opal.version>5.0.0</opal.version>
     <obiba-commons.version>4.2.0</obiba-commons.version>
-    <spring.version>6.1.13</spring.version>
+    <spring.version>6.1.14</spring.version>
 
     <!-- maven plugins -->
     <github-release-plugin.version>1.6.0</github-release-plugin.version>
